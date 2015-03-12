@@ -183,7 +183,8 @@ form {
 
 .archivelist {
   list-style: none;
-  padding: 0; }
+  padding: 0;
+  display: block; }
   .archivelist li {
     padding: 1.5rem 1rem;
     width: 100%;
@@ -194,15 +195,18 @@ form {
     background-color: lightskyblue; }
   .archivelist .archivelist-title {
     width: 100%;
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
   .archivelist .archivelist-author {
     width: 100%;
+    display: block;
     font-size: 0.90023rem; }
   .archivelist .archivelist-tags {
     width: 100%;
-    font-size: 0.90023rem; }
+    display: block;
+    font-size: 0.67534rem; }
 
 /* Responsive design */
 @media (max-width: 840px) {
