@@ -1,0 +1,29 @@
+<article class="container">
+<header>
+    <a href="#/{{ meta.url }}">
+        $if(title)$
+        <h1 id="title">$title$</h1>
+        $endif$
+    </a>
+<ul class="meta">
+$if(author)$
+<li class="metaauthor">
+    By $author$
+</li>
+$endif$
+$if(date)$
+<li class="metadate">
+    <time>
+        $date$
+    </time>
+</li>
+$endif$
+$if(tags)$
+<li>
+    $tags$
+</li>
+$endif$
+</ul>
+</header>
+$body$
+</article>

@@ -1,0 +1,184 @@
+@import '_reset';
+@import 'minitype/minitype';
+
+@include minitype();
+
+body {
+  background-color: white;
+  font-weight: 400;
+  padding-top:$lh;
+}
+
+h1, h2, h3, h4 {
+  font-weight: inherit;
+}
+
+pre {
+  width:auto;
+  overflow:scroll;
+  margin-top:-1px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link, a:visited, a:active {
+  color:lightskyblue;
+}
+
+a:hover {
+  color:lightblue;
+}
+
+form {
+  width:100%;
+}
+
+/* Classes & IDs */
+.container {
+  margin-right:auto;
+  margin-left:auto;
+  width:800px;
+  display:block;
+}
+
+#title {
+  padding-top: $lh * 0.75;
+  margin-bottom: $lh * 0.25;
+}
+
+.meta {
+  font-family:'Montserrat',sans;
+  font-size:$f-small;
+  list-style:none;
+  padding:0;
+  margin-bottom:$lh;
+}
+
+.meta li {
+  display:block;
+  width:100%;
+}
+
+.metaauthor {
+  font-size:$f-large;
+  line-height:$lh-large*2;
+}
+
+.metadate {
+  font-size:$f-base;
+  line-height:$lh;
+}
+
+.search {
+  width:70%;
+  height:2rem;
+  margin:0 auto;
+  padding:0 $f-small 0 $f-small * 2;
+  border-style:solid;
+  display:block;
+  color:grey;
+  background:url(/img/search.svg) no-repeat 0.6rem 0.6rem;
+  background-size:0.7rem 0.7rem;
+  font-size:$f-small;
+  outline:0;
+  border-color:lightgrey;
+}
+
+.search:hover {
+  border-color:grey;
+}
+
+.search:focus {
+  border-color:lightblue;
+}
+
+.archivelist {
+  list-style:none;
+  padding:0;
+
+  li {
+    padding:1.5rem 1rem;
+  }
+
+  a:hover {
+    color:white;
+  }
+
+  li:hover {
+    background-color:lightskyblue;
+  }
+
+  .archivelist-title {
+    white-space: nowrap; 
+    width:80%;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow: ellipsis; 
+  }
+
+  .archivelist-author {
+    width:5rem;
+    display:inline-block;
+    font-size:$f-small;
+  }
+
+  .archivelist-tags {
+    width:100%;
+    display:block;
+    font-size:$f-small;
+  }
+}
+
+/* Responsive design */
+@media (max-width:840px) 
+{
+  .container {
+    margin-right:2rem;
+    margin-left:2rem;
+    width:auto;
+  }
+}
+
+@media (max-width:600px) 
+{
+}
+
+@media (max-width:400px) 
+{
+  .archivelist-title {
+    white-space: normal; 
+    overflow:none;
+    text-overflow: none; 
+  }
+}
+
+/* iPhone 2G-4S */
+@media only screen 
+  and (min-device-width : 320px) 
+  and (max-device-width : 480px) {
+  .archivelist-title {
+    white-space: normal; 
+    overflow:none;
+    text-overflow: none; 
+  }
+}
+
+/* iPhone 5/5S */
+@media only screen 
+  and (min-device-width : 320px) 
+  and (max-device-width : 568px) {
+}
+
+/* iPhone 6 */
+@media only screen 
+  and (min-device-width : 375px) 
+  and (max-device-width : 667px) {
+}
+
+/* iPad */
+@media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) {
+}

@@ -1,0 +1,18 @@
+// Font sizes
+$f-small: $f-base  / $scale;
+$f-tiny:  $f-small / $scale;
+$f-large: $f-base  * $scale;
+$f-Large: $f-large * $scale;
+$f-huge:  $f-Large * $scale;
+$f-Huge:  $f-huge  * $scale;
+$f-HUGE:  $f-Huge  * $scale;
+
+// Line heights
+$lh-small: $lh / $f-small;
+$lh-tiny:  $lh / $f-tiny;
+$lh-large: $lh / $f-large;
+$lh-Large: $lh / $f-Large;
+$lh-huge:  $lh / $f-huge;
+$lh-Huge:  $lh / $f-Huge;
+$lh-HUGE:  $lh / $f-HUGE;
+

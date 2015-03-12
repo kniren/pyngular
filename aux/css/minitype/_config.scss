@@ -1,0 +1,22 @@
+// Available scales
+$minorsecond:     1.067;
+$majorsecond:     1.125;
+$minorthird:      1.2;
+$majorthird:      1.25;
+$perfectfourth:   1.333;
+$augmentedfourth: 1.414;
+$perfectfifth:    1.5;
+$goldenratio:     1.618;
+
+// Set the base font size
+$f-base: 1.2rem;
+
+// Set the lineheight
+$lh: 1.5 * $f-base;
+
+// Select your scale
+$scale: $perfectfourth;
+
+// Set $f-family:true if using font family variables
+$f-headings: 'Montserrat', sans-serif;
+$f-body: 'Lora', serif;

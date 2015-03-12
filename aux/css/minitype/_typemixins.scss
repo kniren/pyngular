@@ -1,0 +1,174 @@
+@mixin headerTags($lhmult-h1,$lhmult-h2,$lhmult-h3,$lhmult-h4) {
+    h1 {
+      font-size: $f-Huge;
+      line-height: $lh-Huge * $lhmult-h1;
+    }
+    
+    h2 {
+      font-size: $f-huge;
+      line-height: $lh-huge * $lhmult-h2;
+    }
+    
+    h3 {
+      font-size: $f-Large;
+      line-height: $lh-Large * $lhmult-h3;
+    }
+    
+    h4 {
+      font-size: $f-large;
+      line-height: $lh-large * $lhmult-h4;
+    }
+
+    h5 {
+      font-size: $f-base;
+      line-height: $lh;
+    }
+
+    h6 {
+      font-size: $f-small;
+      line-height: $lh-small;
+    }
+}
+
+@mixin includeHeadings() {
+  @if(($scale == $majorsecond) or ($scale == $minorsecond) ) {
+    $lhmult-h1:1;
+    $lhmult-h2:1;
+    $lhmult-h3:1;
+    $lhmult-h4:1;
+    @include headerTags($lhmult-h1,$lhmult-h2,$lhmult-h3,$lhmult-h4);
+  }
+  @if(($scale == $majorthird) or ($scale == $minorthird)) {
+    $lhmult-h1:2;
+    $lhmult-h2:2;
+    $lhmult-h3:2;
+    $lhmult-h4:1;
+    @include headerTags($lhmult-h1,$lhmult-h2,$lhmult-h3,$lhmult-h4);
+  }
+  @if(($scale == $perfectfourth) or ($scale == $augmentedfourth)) {
+    $lhmult-h1:3;
+    $lhmult-h2:2;
+    $lhmult-h3:2;
+    $lhmult-h4:1;
+    @include headerTags($lhmult-h1,$lhmult-h2,$lhmult-h3,$lhmult-h4);
+  }
+  @if($scale == $perfectfifth) {
+    $lhmult-h1:4;
+    $lhmult-h2:3;
+    $lhmult-h3:2;
+    $lhmult-h4:1;
+    @include headerTags($lhmult-h1,$lhmult-h2,$lhmult-h3,$lhmult-h4);
+  }
+  @if($scale == $goldenratio) {
+    $lhmult-h1:5;
+    $lhmult-h2:3;
+    $lhmult-h3:2;
+    $lhmult-h4:1;
+    @include headerTags($lhmult-h1,$lhmult-h2,$lhmult-h3,$lhmult-h4);
+  }
+}
+
+@mixin hypenate() {
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@mixin includeMediaQueries() {
+  @media (max-width:600px) 
+  {
+    html {
+      font-size:$f-base * 0.9;
+    }
+  }
+
+  @media (max-width:400px) 
+  {
+    html {
+      font-size:$f-base * 0.8;
+      @include hypenate();
+    }
+  }
+
+  /* iPhone 2G-4S */
+  @media only screen 
+    and (min-device-width : 320px) 
+    and (max-device-width : 480px) {
+    html {
+      font-size:$f-base * 2;
+      @include hypenate();
+    }
+  }
+  
+  /* iPhone 5/5S */
+  @media only screen 
+    and (min-device-width : 320px) 
+    and (max-device-width : 568px) {
+    html {
+      font-size:$f-base * 2;
+      @include hypenate();
+    }
+  }
+  
+  /* iPhone 6 */
+  @media only screen 
+    and (min-device-width : 375px) 
+    and (max-device-width : 667px) {
+    html {
+      font-size:$f-base * 2;
+      @include hypenate();
+    }
+  }
+  
+  /* iPad */
+  @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px) {
+    html {
+      font-size:$f-base * 2;
+    }
+  }
+}
+
+@mixin includeBase() {
+  html {
+    font-size: $f-base;
+  }
+  
+  body {
+    line-height: $lh;
+    font-family: $f-body;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $f-headings; 
+    margin-top:0;
+    margin-bottom: $lh;
+  }
+  
+  small {
+    font-size: $f-small;
+  }
+  
+  p {
+    margin-top: 0;
+    margin-bottom: $lh;
+  }
+  
+  pre {
+    margin-bottom:$lh;
+    padding-left: $f-base * 2;
+  }
+  
+  form {
+    margin-bottom: $lh;
+  }
+}
+
+@mixin minitype() {
+  @include includeBase();
+  @include includeHeadings();
+  @include includeMediaQueries();
+}

@@ -1,0 +1,24 @@
+<div class="container">
+<form accept-charset="utf-8">
+    <input type="search" class="search" placeholder="Search by Title / Tag / Author" ng-model="search" />
+</form>
+<ul class="archivelist">
+    <!--Search by metadata, including title, date and tags-->
+    <a ng-repeat="elem in pages | filter:search | orderBy:'author'" href="#/{{ elem.url }}">
+        <li ng-if="elem.title">
+            <span class="archivelist-title">
+                {{ elem.title }}
+            </span>
+            <span class="archivelist-author">
+                {{ elem.author }}
+            </span>
+            <span class="archivelist-tags">
+                {{ elem.tags }}
+            </span>
+        </li>
+        <li ng-if="!elem.title">
+            {{ elem.url }}
+        </li>
+    </a>
+</ul>
+</div>

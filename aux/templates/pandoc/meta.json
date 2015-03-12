@@ -1,0 +1,7 @@
+{
+    $if(title)$"title":"$title$",
+    $endif$$if(author)$"author":"$author$",
+    $endif$$if(tags)$"tags":"$tags$",
+    $endif$$if(date)$"date":"$date$",
+    $endif$"url":"$url$"
+}

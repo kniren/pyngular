@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+import time
+import argparse
+import glob
+import json
+import re
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from os import listdir,makedirs,chdir,walk
+from os.path import isdir,isfile, join, splitext, split
+from os.path import exists as pathexists
+from subprocess import call
+from shutil import copyfile,copytree,copy
+from watchdog.observers import Observer
+from watchdog.events import PatternMatchingEventHandler
+import socketserver
+
+class WatchdogHandler(PatternMatchingEventHandler):
+    def __init__(self):
+        super(WatchdogHandler, self).__init__(ignore_patterns=[
+            join('.',join(DEST_DIR,'*')),
+            join('.',join(CACHE_DIR,'*')),
+            './.git/*'])
+
+    def on_modified(self, event):
+        print("Rebuilding")
+        build()
+
+# Origin dirs
+PAGES          = 'pages'
+HTML_TEMPLATES = 'templates'
+STATIC         = [
+                  'js',
+                  'img',
+                  ('templates/html/','./')
+                 ]
+SASS_SRC       = 'css/style.scss'
+AUX_FILES      = 'aux'
+
+# Destination dirs
+CACHE_DIR      = '_cache'
+DEST_DIR       = '_site'
+MAIN_DIR_LIST  = [CACHE_DIR, DEST_DIR]
+
+PARTIALS_DIR   = 'pages'
+PARTIALS_ROUTE = join(DEST_DIR,PARTIALS_DIR)
+DIR_LIST       = MAIN_DIR_LIST + [PARTIALS_ROUTE]
+
+SERVER_CONFIG  = ('127.0.0.1', 8000)
+PANDOC_OPTIONS = ['-f', 'markdown-yaml_metadata_block+mmd_title_block'] + \
+                 ['-t', 'html5']
+PANDOC_TEMPLATES = 'templates/pandoc'
+
+
+def getDateAndUrl(fileName):
+    pattern=r'^(\d*-\d*-\d*)-(.*)'
+    matchObj = re.match(pattern,fileName)
+    if matchObj:
+        return({'date':matchObj.group(1),'url':matchObj.group(2)})
+    else:
+        return({'date':'','url':fileName})
+
+def clean():
+    # Current implementation will only work in UNIX
+    for d in MAIN_DIR_LIST:
+        if pathexists(d):
+            print("Cleaning " + d)
+            call(['rm', '-r', d])
+
+def build():
+    for file in [f for f in listdir(PAGES) if isfile(join(PAGES,f))]:
+        fileName, extension = splitext(file)
+        parameters = getDateAndUrl(fileName)
+        url  = parameters['url']
+        date = parameters['date']
+
+        for d in DIR_LIST:
+            if not pathexists(d):
+                makedirs(d)
+
+        metadate = []
+        if date:
+            metadate = ['-M','date:' + date]
+
+        # Parse metadata
+        pandoc=['pandoc']                                           + \
+            PANDOC_OPTIONS                                          + \
+            ['--template='+ join(PANDOC_TEMPLATES,'meta.json')]     + \
+            metadate                                                + \
+            ['-M','url:'+url]                                       + \
+            [join(PAGES,file), '-o' , join(CACHE_DIR,url+'.json')]
+        call(pandoc)
+
+        # Parse content
+        pandoc=['pandoc']                                           + \
+            PANDOC_OPTIONS                                          + \
+            ['--template=' + join(PANDOC_TEMPLATES,'content.html')] + \
+            metadate                                                + \
+            [join(PAGES,file), '-o' , join(PARTIALS_ROUTE,url+'.html')]
+        call(pandoc)
+
+    # Create a single json file with all metadata
+    createPageList()
+
+    # Copy static files
+    for path in STATIC:
+        if not isinstance(path,tuple):
+            copyStatic(path)
+        else:
+            copyStatic(path[0],path[1])
+
+    # Compile sass
+    if SASS_SRC:
+        compileSASS(SASS_SRC)
+
+def createPageList():
+    files = glob.glob(join(CACHE_DIR,'*.json'))
+    json_master = []
+    for file in files:
+        with open(file) as json_file:
+            json_data = json.load(json_file)
+            json_master = json_master + [json_data]
+    with open(join(DEST_DIR,'pages.json'), mode='wt', encoding='utf-8') as f:
+        f.write(json.dumps(json_master, indent=4, separators=(',',':')))
+
+def watch():
+    path = '.'
+    event_handler = WatchdogHandler()
+    observer = Observer()
+    observer.schedule(event_handler, path, recursive=True)
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+        exit(1)
+    observer.join()
+
+def server():
+    print("Listening on " + SERVER_CONFIG[0] + ":"+ str(SERVER_CONFIG[1]))
+    chdir(DEST_DIR)
+    httpd = socketserver.TCPServer(SERVER_CONFIG, SimpleHTTPRequestHandler)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        httpd.socket.close()
+        exit(1)
+
+def copyStatic(path,dst=None):
+    if pathexists(path):
+        if isfile(path):
+            if not dst:
+                dst = path
+            destpath = join(DEST_DIR,dst)
+            basedir = split(destpath)[0]
+            if not pathexists(basedir):
+                makedirs(basedir)
+            copy(path,destpath)
+    else:
+        print("Source " + path + " doesn't exist")
+        return
+
+    for elem in walk(path):
+        if dst:
+            newdst = re.sub('^'+path,dst,elem[0])
+            dirpath = join(DEST_DIR,newdst)
+        else:
+            newdst = elem[0]
+            dirpath = join(DEST_DIR,newdst)
+
+        if not pathexists(dirpath):
+            makedirs(dirpath)
+
+        for file in elem[2]:
+            srcfile = join(elem[0],file) 
+            dstfile = join(DEST_DIR,newdst) 
+            copy(srcfile,dstfile)
+
+def compileSASS(src, altpath=None):
+    # Check paths
+    if not pathexists(src):
+        print("Path for SASS file " + src + " does not exist")
+        exit(1)
+
+    if not isfile(src):
+        print("Path for SASS file " + src + " does not exist")
+        exit(1)
+
+    if altpath:
+        if not pathexists(altpath):
+            print("Destination path " + altpath + " does not exist")
+            exit(1)
+    else:
+        # Build altpath
+        basename = splitext(src)
+        altpath = join(DEST_DIR, basename[0] + '.css')
+
+    # Make directory if not exists
+    if not pathexists(split(altpath)[0]):
+        makedirs(split(altpath)[0])
+
+    call(['scss',src,altpath])
+
+def isdirempty(path):
+    for element in walk(path):
+        # Ignore hidden files
+        dirs  = [f for f in element[1] if not f[0] == '.']
+        files = [f for f in element[2] if not f[0] == '.']
+        if len(dirs) or len(files):
+            return False
+        else:
+            return True
+
+def scaffold(path=None, example=None):
+    if not path:
+        path = '.'
+    else:
+        if not pathexists(path):
+            print("Path " + path + " does not exist")
+            exit(1)
+
+    if not isdirempty(path):
+        print("Directory is not empty")
+        exit(1)
+
+    if example:
+        copytree(join(AUX_FILES,'img'),join(path,'img'))
+        copytree(join(AUX_FILES,'css'),join(path,'css'))
+        copytree(join(AUX_FILES,'js'),join(path,'js'))
+        copytree(join(AUX_FILES,'templates'),join(path,'templates'))
+        copytree(join(AUX_FILES,'pages'),join(path,'pages'))
+    else:
+        makedirs(join(path,'css'))
+        makedirs(join(path,'js'))
+        makedirs(join(path,'templates'))
+        makedirs(join(path,'pages'))
+        makedirs(join(path,'img'))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="A static page generator with support for angularjs")
+    parser.add_argument("command", help="build | rebuild | clean | server | watch | init [-d] [-e]")
+    parser.add_argument("-d","--dir", help="Initialization directory")
+    parser.add_argument("-e","--example", help="Init with default template", action='store_true')
+    args = parser.parse_args()
+
+    if args.command == 'build':
+        print("building...")
+        build()
+    elif args.command == 'clean':
+        clean()
+    elif args.command == 'rebuild':
+        print("rebuilding...")
+        clean()
+        build()
+    elif args.command == 'server':
+        build()
+        server()
+    elif args.command == 'watch':
+        print("Building...")
+        build()
+        print("Watching...")
+        watch()
+    elif args.command == 'init':
+        if args.dir:
+            d = args.dir
+        else:
+            d = '.'
+        if args.example:
+            e = True
+        else:
+            e = False
+
+        scaffold(d,e)
+
+    else:
+        parser.print_help()
