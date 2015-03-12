@@ -97,6 +97,7 @@ form {
 .archivelist {
   list-style:none;
   padding:0;
+  display:block;
 
   li {
     padding:1.5rem 1rem;
@@ -113,17 +114,23 @@ form {
   }
 
   .archivelist-title {
+    width:100%;
+    display:block;
     white-space: nowrap; 
     overflow:hidden;
     text-overflow: ellipsis; 
   }
 
   .archivelist-author {
+    width:100%;
+    display:block;
     font-size:$f-small;
   }
 
   .archivelist-tags {
-    font-size:$f-small;
+    width:100%;
+    display:block;
+    font-size:$f-tiny;
   }
 }
 
