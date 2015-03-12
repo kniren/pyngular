@@ -169,7 +169,7 @@ form {
   border-style: solid;
   display: block;
   color: grey;
-  background: url(/img/search.svg) no-repeat 0.6rem 0.6rem;
+  background: url(../img/search.svg) no-repeat 0.6rem 0.6rem;
   background-size: 0.7rem 0.7rem;
   font-size: 0.90023rem;
   outline: 0;
@@ -185,24 +185,20 @@ form {
   list-style: none;
   padding: 0; }
   .archivelist li {
-    padding: 1.5rem 1rem; }
+    padding: 1.5rem 1rem;
+    width: 100%;
+    display: block; }
   .archivelist a:hover {
     color: white; }
   .archivelist li:hover {
     background-color: lightskyblue; }
   .archivelist .archivelist-title {
     white-space: nowrap;
-    width: 80%;
-    display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis; }
   .archivelist .archivelist-author {
-    width: 5rem;
-    display: inline-block;
     font-size: 0.90023rem; }
   .archivelist .archivelist-tags {
-    width: 100%;
-    display: block;
     font-size: 0.90023rem; }
 
 /* Responsive design */

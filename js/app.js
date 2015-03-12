@@ -19,7 +19,7 @@ appModule.config(['$routeProvider','$locationProvider',function($routeProvider, 
 }]);
 
 appModule.factory('PagesFactory', function($http) {
-    return $http.get('/pages.json').then(function(res) {
+    return $http.get('./pages.json').then(function(res) {
         if (res.data.error) {
            return null; 
         }
@@ -37,7 +37,7 @@ appModule.controller('controller', function($scope, PagesFactory) {
 });
 
 appModule.controller('pageCtrl', function($scope, $routeParams, PagesFactory, $filter) {
-    $scope.url = '/pages/' + $routeParams.url + '.html';
+    $scope.url = './pages/' + $routeParams.url + '.html';
     PagesFactory.then(function(response) {
         $scope.pages = response;
         var found = $filter('filter')($scope.pages, {url:$routeParams.url}, true);
