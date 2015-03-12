@@ -11,6 +11,10 @@ directory will be parsed for metadata and compiled to `HTML` using
 `pandoc`. The metadata will be stored on a `json` file at the root of
 the compiled site so that you can use it to build your AngularJS app.
 
+After all that you should have something similar to this:
+
+[Demo page](http://kniren.github.io/pyngular)
+
 Getting started
 ---------------
 
