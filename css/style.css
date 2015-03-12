@@ -1,0 +1,229 @@
+/* Reset */
+html, body, div, form, fieldset, legend, label, ul, li {
+  margin: 0;
+  padding: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+th, td {
+  text-align: left;
+  vertical-align: top; }
+
+img {
+  border: 0; }
+
+html {
+  font-size: 1.2rem; }
+
+body {
+  line-height: 1.8rem;
+  font-family: "Lora", serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0;
+  margin-bottom: 1.8rem; }
+
+small {
+  font-size: 0.90023rem; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1.8rem; }
+
+pre {
+  margin-bottom: 1.8rem;
+  padding-left: 2.4rem; }
+
+form {
+  margin-bottom: 1.8rem; }
+
+h1 {
+  font-size: 3.7888rem;
+  line-height: 1.42525; }
+
+h2 {
+  font-size: 2.84231rem;
+  line-height: 1.26657; }
+
+h3 {
+  font-size: 2.13227rem;
+  line-height: 1.68834; }
+
+h4 {
+  font-size: 1.5996rem;
+  line-height: 1.12528; }
+
+h5 {
+  font-size: 1.2rem;
+  line-height: 1.8rem; }
+
+h6 {
+  font-size: 0.90023rem;
+  line-height: 1.9995; }
+
+@media (max-width: 600px) {
+  html {
+    font-size: 1.08rem; } }
+@media (max-width: 400px) {
+  html {
+    font-size: 0.96rem;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; } }
+/* iPhone 2G-4S */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  html {
+    font-size: 2.4rem;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; } }
+/* iPhone 5/5S */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  html {
+    font-size: 2.4rem;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; } }
+/* iPhone 6 */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  html {
+    font-size: 2.4rem;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto; } }
+/* iPad */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  html {
+    font-size: 2.4rem; } }
+body {
+  background-color: white;
+  font-weight: 400;
+  padding-top: 1.8rem; }
+
+h1, h2, h3, h4 {
+  font-weight: inherit; }
+
+pre {
+  width: auto;
+  overflow: scroll;
+  margin-top: -1px; }
+
+a {
+  text-decoration: none; }
+
+a:link, a:visited, a:active {
+  color: lightskyblue; }
+
+a:hover {
+  color: lightblue; }
+
+form {
+  width: 100%; }
+
+/* Classes & IDs */
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 800px;
+  display: block; }
+
+#title {
+  padding-top: 1.35rem;
+  margin-bottom: 0.45rem; }
+
+.meta {
+  font-family: 'Montserrat',sans;
+  font-size: 0.90023rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.8rem; }
+
+.meta li {
+  display: block;
+  width: 100%; }
+
+.metaauthor {
+  font-size: 1.5996rem;
+  line-height: 2.25056; }
+
+.metadate {
+  font-size: 1.2rem;
+  line-height: 1.8rem; }
+
+.search {
+  width: 70%;
+  height: 2rem;
+  margin: 0 auto;
+  padding: 0 0.90023rem 0 1.80045rem;
+  border-style: solid;
+  display: block;
+  color: grey;
+  background: url(/img/search.svg) no-repeat 0.6rem 0.6rem;
+  background-size: 0.7rem 0.7rem;
+  font-size: 0.90023rem;
+  outline: 0;
+  border-color: lightgrey; }
+
+.search:hover {
+  border-color: grey; }
+
+.search:focus {
+  border-color: lightblue; }
+
+.archivelist {
+  list-style: none;
+  padding: 0; }
+  .archivelist li {
+    padding: 1.5rem 1rem; }
+  .archivelist a:hover {
+    color: white; }
+  .archivelist li:hover {
+    background-color: lightskyblue; }
+  .archivelist .archivelist-title {
+    white-space: nowrap;
+    width: 80%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .archivelist .archivelist-author {
+    width: 5rem;
+    display: inline-block;
+    font-size: 0.90023rem; }
+  .archivelist .archivelist-tags {
+    width: 100%;
+    display: block;
+    font-size: 0.90023rem; }
+
+/* Responsive design */
+@media (max-width: 840px) {
+  .container {
+    margin-right: 2rem;
+    margin-left: 2rem;
+    width: auto; } }
+@media (max-width: 400px) {
+  .archivelist-title {
+    white-space: normal;
+    overflow: none;
+    text-overflow: none; } }
+/* iPhone 2G-4S */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .archivelist-title {
+    white-space: normal;
+    overflow: none;
+    text-overflow: none; } }
+/* iPhone 5/5S */
+/* iPhone 6 */
+/* iPad */
+
+/*# sourceMappingURL=style.css.map */

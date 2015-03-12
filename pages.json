@@ -1,0 +1,26 @@
+[
+    {
+        "title":"Alice in Wonderland",
+        "tags":"Fantasy, Fiction, Adventure",
+        "author":"Lewis Carroll",
+        "url":"carroll-lewis-alice-adventure-wonderland"
+    },
+    {
+        "title":"The Metamorphosis",
+        "tags":"Academic, German Literature",
+        "author":"Franz Kafka",
+        "url":"kafka-franz-metamorphosis"
+    },
+    {
+        "title":"Dracula",
+        "tags":"Vampire, Horror, Gothic",
+        "author":"Bram Stoker",
+        "url":"stoker-bram-dracula"
+    },
+    {
+        "title":"The Picture of Dorian Gray",
+        "tags":"Fiction, Horror, Literature, Gothic",
+        "author":"Oscar Wilde",
+        "url":"wilde-oscar-dorian-gray"
+    }
+]
