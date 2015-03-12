@@ -193,12 +193,15 @@ form {
   .archivelist li:hover {
     background-color: lightskyblue; }
   .archivelist .archivelist-title {
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
   .archivelist .archivelist-author {
+    width: 100%;
     font-size: 0.90023rem; }
   .archivelist .archivelist-tags {
+    width: 100%;
     font-size: 0.90023rem; }
 
 /* Responsive design */
