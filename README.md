@@ -18,6 +18,13 @@ After all that you should have something similar to this:
 Getting started
 ---------------
 
+Clone the repository and make it accesible in your `$PATH`.
+Pyngular requires:
+
+- [Python 3.4](https://www.python.org/downloads/)
+- [Watchdog](https://pypi.python.org/pypi/watchdog)
+- [Pandoc](http://johnmacfarlane.net/pandoc/)
+
 Initialize the folder you wish to work in with the example templates:
 
     mkdir exampleapp
